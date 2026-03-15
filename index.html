@@ -1,241 +1,312 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="bg-black text-white antialiased">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarvagya Jaiswal | ML Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sarvagya Jaiswal | ML Architect</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        base: '#000000',
-                        surface: '#0a0a0a',
-                        borderLight: '#1f1f1f',
-                        neonCyan: '#00f0ff',
-                        neonPurple: '#8a2be2',
-                        textMain: '#ffffff',
-                        textMuted: '#a1a1aa'
+                        bgDark: '#050505',
+                        bgLighter: '#111111',
+                        bloodRed: '#ff0033',
+                        darkRed: '#99001f',
+                        textMain: '#f3f4f6',
+                        textMuted: '#9ca3af'
                     }
                 }
             }
         }
     </script>
+
     <style>
+        /* Base Setup & Custom Scrollbar */
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #030303;
             overflow-x: hidden;
         }
-
-        /* Cursor Glow Effect */
-        :root {
-            --cursor-x: 50%;
-            --cursor-y: 50%;
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .glow-bg {
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff0033;
+            border-radius: 4px;
+        }
+
+        /* Lenis Smooth Scroll Setup */
+        html.lenis {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        /* Noise Overlay for Premium Texture */
+        .noise-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(138, 43, 226, 0.15) 0%, rgba(0, 240, 255, 0.05) 20%, rgba(0,0,0,0) 50%);
             pointer-events: none;
-            z-index: 0;
-            transition: background 0.1s ease;
+            z-index: 50;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Frosted Nav */
-        .glass-nav {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Typography & Outlines */
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+            transition: all 0.3s ease;
+        }
+        .text-stroke:hover {
+            -webkit-text-stroke: 1px #ff0033;
+            color: rgba(255, 0, 51, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
         }
 
-        /* 3D Tilt Card Base */
-        .tilt-card {
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            transform-style: preserve-3d;
+        /* Visual Elements */
+        .red-gradient-bg {
+            background: radial-gradient(circle at center, rgba(255, 0, 51, 0.15) 0%, rgba(0,0,0,0) 70%);
+        }
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.4s ease;
+        }
+        .glass-panel:hover {
+            border-color: rgba(255, 0, 51, 0.4);
         }
         
-        .tilt-card-inner {
-            transform: translateZ(30px); /* Pushes text out in 3D */
+        /* Timeline Spine */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1) 10%, rgba(255, 255, 255, 0.1) 90%, transparent);
+            z-index: 0;
+        }
+        @media (max-width: 768px) {
+            .timeline-line { left: 24px; }
+        }
+        
+        .timeline-progress {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 0%;
+            background: #ff0033;
+            box-shadow: 0 0 15px #ff0033;
+            z-index: 1;
         }
 
-        /* Gradients & Accents */
-        .text-gradient {
-            background: linear-gradient(135deg, #00f0ff 0%, #8a2be2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Node dot */
+        .timeline-node {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 50%;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+        @media (max-width: 768px) {
+            .timeline-node { left: 24px; }
+        }
+        .timeline-node.active {
+            border-color: #ff0033;
+            background: #ff0033;
+            box-shadow: 0 0 20px #ff0033;
         }
 
-        .border-gradient-hover {
+        /* Custom Button */
+        .btn-red {
             position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #ff0033;
+            color: #000;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
-        .border-gradient-hover::after {
+        .btn-red::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(135deg, #00f0ff, #8a2be2);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
         }
-        .border-gradient-hover:hover::after {
-            opacity: 1;
+        .btn-red:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 0, 51, 0.3);
+        }
+        .btn-red:hover::before {
+            left: 100%;
         }
 
-        /* Tags */
-        .tag {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 4px 12px;
-            border-radius: 6px;
+        /* Utilities */
+        .clip-text { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+        .tag-red {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid rgba(255, 0, 51, 0.3);
+            background: rgba(255, 0, 51, 0.05);
+            color: #ff0033;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: #d4d4d8;
-        }
-
-        /* Scroll Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+            font-size: 0.75rem;
+            border-radius: 999px;
         }
     </style>
 </head>
-<body class="antialiased relative">
+<body>
 
-    <div class="glow-bg" id="glow-bg"></div>
+    <div class="noise-overlay"></div>
 
-    <nav class="fixed top-0 w-full z-50 glass-nav">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
-            <div class="text-xl font-bold tracking-tighter text-white">
-                SJ<span class="text-neonCyan">.</span>
+    <nav class="fixed top-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="font-display font-bold text-2xl tracking-tighter">
+                SARVAGYA<span class="text-bloodRed">.</span>
             </div>
-            
-            <div class="hidden md:flex items-center space-x-8 text-sm font-mono text-textMuted">
-                <a href="#experience" class="hover:text-white transition-colors">EXPERIENCE</a>
-                <a href="#projects" class="hover:text-white transition-colors">PROJECTS</a>
-                <a href="#writing" class="hover:text-white transition-colors">WRITING</a>
-                <a href="https://drive.google.com/file/d/1NXvsgXGGMSAYgzskmLSLSqRA5jyopKx-/view?usp=sharing" target="_blank" class="border border-borderLight hover:border-neonPurple px-4 py-2 rounded transition-all text-white flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    RESUME
-                </a>
+            <div class="hidden md:flex gap-8 font-mono text-sm">
+                <a href="#journey" class="hover:text-bloodRed transition-colors">THE_JOURNEY</a>
+                <a href="#architectures" class="hover:text-bloodRed transition-colors">ARCHITECTURES</a>
+                <a href="#research" class="hover:text-bloodRed transition-colors">RESEARCH</a>
             </div>
+            <a href="https://drive.google.com/file/d/1NXvsgXGGMSAYgzskmLSLSqRA5jyopKx-/view?usp=sharing" target="_blank" class="font-mono text-sm border border-white/20 hover:border-bloodRed px-4 py-2 hover:bg-bloodRed hover:text-black transition-all">
+                [ RESUME.PDF ]
+            </a>
         </div>
     </nav>
 
-    <section class="min-h-screen flex items-center relative z-10 pt-20">
-        <div class="max-w-7xl mx-auto px-6 w-full">
-            <div class="max-w-4xl space-y-8 reveal active">
-                <div class="inline-flex items-center gap-2 border border-borderLight bg-surface px-4 py-1.5 rounded-full text-xs font-mono text-textMuted border-gradient-hover">
-                    <span class="w-2 h-2 rounded-full bg-neonCyan animate-pulse"></span>
-                    Systems Online • Deploying ML to Production
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 red-gradient-bg opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="flex flex-col items-start">
+                <div class="overflow-hidden mb-4">
+                    <p class="font-mono text-bloodRed tracking-widest text-sm uppercase hero-subtext transform translate-y-full">Systems Online // Accessing Mainframe</p>
                 </div>
                 
-                <h1 class="text-6xl md:text-8xl font-bold tracking-tight leading-tight text-white">
-                    Engineering <br>
-                    <span class="text-gradient">AI Architectures.</span>
+                <h1 class="font-display font-extrabold text-7xl md:text-9xl tracking-tighter leading-[0.9] uppercase uppercase">
+                    <div class="overflow-hidden clip-text"><span class="block hero-title transform translate-y-full">Architecting</span></div>
+                    <div class="overflow-hidden clip-text"><span class="block hero-title transform translate-y-full text-stroke">The Bleeding</span></div>
+                    <div class="overflow-hidden clip-text"><span class="block hero-title transform translate-y-full">Edge.</span></div>
                 </h1>
                 
-                <p class="text-lg md:text-xl text-textMuted leading-relaxed max-w-2xl">
-                    I am Sarvagya Jaiswal, a Founding Machine Learning Engineer. I design and deploy scalable Large Language Models, stateful RAG pipelines, and high-performance Computer Vision systems.
-                </p>
-                
-                <div class="flex flex-wrap gap-4 pt-4 font-mono text-sm">
-                    <a href="#projects" class="bg-white text-black px-8 py-3 rounded hover:bg-gray-200 transition-colors font-bold">
-                        VIEW_DEPLOYMENTS
-                    </a>
-                    <a href="https://huggingface.co/Sarvjais12" target="_blank" class="border border-borderLight px-8 py-3 rounded hover:border-neonPurple transition-colors flex items-center gap-2 bg-surface">
-                        🤗 HUGGING_FACE
-                    </a>
+                <div class="mt-8 max-w-2xl overflow-hidden">
+                    <p class="text-textMuted text-lg md:text-xl leading-relaxed hero-desc transform translate-y-full opacity-0">
+                        I am Sarvagya Jaiswal. A Founding Machine Learning Engineer pushing the boundaries of Large Language Models, Stateful RAG systems, and high-performance Computer Vision.
+                    </p>
                 </div>
+                
+                <div class="mt-12 flex gap-6 hero-actions opacity-0">
+                    <a href="#journey" class="btn-red">Initialize Journey <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+            <span class="font-mono text-xs tracking-widest rotate-90 mb-4 text-bloodRed">SCROLL</span>
+            <div class="w-[1px] h-16 bg-white/20 relative overflow-hidden">
+                <div class="w-full h-1/2 bg-bloodRed absolute top-0 animate-[translateY_2s_ease-in-out_infinite]"></div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="py-24 relative z-10 border-t border-borderLight bg-[#030303]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="reveal mb-16">
-                <h2 class="text-4xl font-bold mb-4">Professional Experience</h2>
-                <p class="text-textMuted font-mono text-sm">Building infrastructure and optimizing inference.</p>
+    <section id="journey" class="relative py-32 bg-[#030303]">
+        <div class="max-w-7xl mx-auto px-6 relative">
+            
+            <div class="mb-24 text-center gs-reveal">
+                <h2 class="font-display font-bold text-5xl md:text-7xl uppercase tracking-tighter">The <span class="text-bloodRed">Journey</span></h2>
+                <p class="font-mono text-textMuted mt-4">From algorithmic optimization to founding infrastructure.</p>
             </div>
 
-            <div class="space-y-8">
-                <div class="tilt-card rounded-2xl p-8 reveal border-gradient-hover" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
-                    <div class="tilt-card-inner">
-                        <div class="flex flex-col md:flex-row justify-between items-start mb-6">
-                            <div>
-                                <h3 class="text-2xl font-bold text-white mb-1">Founding ML Engineer</h3>
-                                <p class="text-neonCyan font-mono text-sm">Infiltrix (AI Security Startup)</p>
-                            </div>
-                            <div class="mt-4 md:mt-0 px-3 py-1 border border-borderLight rounded text-xs font-mono text-textMuted">
-                                Dec 2025 — Present
-                            </div>
-                        </div>
+            <div class="relative pb-24" id="timeline-container">
+                <div class="timeline-line">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                </div>
+
+                <div class="relative w-full flex md:justify-start justify-end mb-32 timeline-section">
+                    <div class="timeline-node top-1/2"></div>
+                    <div class="w-[85%] md:w-[45%] glass-panel p-8 md:p-12 gs-fade-right relative overflow-hidden group">
+                        <div class="absolute -top-20 -right-20 w-40 h-40 bg-bloodRed/10 rounded-full blur-3xl group-hover:bg-bloodRed/20 transition-all"></div>
                         
-                        <div class="grid md:grid-cols-3 gap-8">
-                            <div class="md:col-span-2 space-y-4 text-textMuted leading-relaxed">
-                                <p><strong class="text-white">The Role:</strong> Architecting core machine learning infrastructure from the ground up, acting as the bridge between research innovation and product deployment.</p>
-                                <p><strong class="text-white">Impact:</strong> Implemented advanced model frameworks and optimized hyperparameter tuning workflows. This directly resulted in a <span class="text-neonPurple font-bold">40% increase in inference precision</span> during production testing while simultaneously reducing computational overhead by 25%.</p>
-                                <p><strong class="text-white">Infrastructure:</strong> Designed scalable data pipelines and automated model evaluation protocols to guarantee absolute environment parity and sub-second latency across the entire product suite.</p>
-                            </div>
-                            <div class="space-y-4 border-l border-borderLight pl-6">
-                                <div class="text-xs font-mono text-gray-500 mb-2">CORE STACK</div>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="tag">PyTorch</span>
-                                    <span class="tag">Transformers</span>
-                                    <span class="tag">Docker</span>
-                                    <span class="tag">LangGraph</span>
-                                    <span class="tag">Linux/CI-CD</span>
+                        <div class="font-mono text-bloodRed text-sm mb-4 tracking-widest">CHAPTER 01 // MAY 2025</div>
+                        <h3 class="font-display font-bold text-3xl mb-2">The Optimization Protocol</h3>
+                        <h4 class="text-xl text-white/70 mb-6">Machine Learning Intern @ FOX TRADING</h4>
+                        
+                        <div class="space-y-4 text-textMuted font-sans leading-relaxed">
+                            <p>
+                                The transition from theory to production scale. Tasked with healthcare data analytics, I engineered an ensemble prediction system utilizing <strong class="text-white">Random Forest and XGBoost</strong>.
+                            </p>
+                            <p>
+                                The real challenge wasn't just accuracy—it was pipeline efficiency. I completely automated the healthcare data preprocessing workflows, drastically reducing the model deployment latency from 48 hours down to a mere 4 hours. 
+                            </p>
+                            <div class="mt-6 p-4 border border-bloodRed/20 bg-bloodRed/5 flex flex-col gap-2">
+                                <div class="flex justify-between items-center border-b border-bloodRed/10 pb-2">
+                                    <span class="font-mono text-xs">LATENCY REDUCTION</span>
+                                    <span class="font-bold text-bloodRed text-xl">91%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-mono text-xs">CLASSIFICATION ACCURACY</span>
+                                    <span class="font-bold text-white text-xl">99.4%</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="tilt-card rounded-2xl p-8 reveal border-gradient-hover" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
-                    <div class="tilt-card-inner">
-                        <div class="flex flex-col md:flex-row justify-between items-start mb-6">
-                            <div>
-                                <h3 class="text-2xl font-bold text-white mb-1">Machine Learning Intern</h3>
-                                <p class="text-neonPurple font-mono text-sm">FOX TRADING (WIPRO Affiliated)</p>
-                            </div>
-                            <div class="mt-4 md:mt-0 px-3 py-1 border border-borderLight rounded text-xs font-mono text-textMuted">
-                                May 2025 — Jul 2025
-                            </div>
-                        </div>
+                <div class="relative w-full flex md:justify-end justify-end mb-12 timeline-section">
+                    <div class="timeline-node top-1/2"></div>
+                    <div class="w-[85%] md:w-[45%] glass-panel p-8 md:p-12 gs-fade-left relative overflow-hidden group">
+                        <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-bloodRed/10 rounded-full blur-3xl group-hover:bg-bloodRed/20 transition-all"></div>
                         
-                        <div class="grid md:grid-cols-3 gap-8">
-                            <div class="md:col-span-2 space-y-4 text-textMuted leading-relaxed">
-                                <p><strong class="text-white">The Project:</strong> Engineered an ensemble diabetes prediction system analyzing over 10,000+ patient records using advanced classification techniques.</p>
-                                <p><strong class="text-white">Impact:</strong> Automated healthcare data preprocessing pipelines, which drastically reduced model deployment latency from 48 hours down to just 4 hours—a <span class="text-neonCyan font-bold">91% reduction in turnaround time</span>.</p>
-                                <p><strong class="text-white">Metrics:</strong> The final ensemble model (Random Forest + XGBoost) achieved a <span class="text-white font-bold">99.4% classification accuracy</span>. Developed interactive visual dashboards to communicate model reliability to stakeholders.</p>
-                            </div>
-                            <div class="space-y-4 border-l border-borderLight pl-6">
-                                <div class="text-xs font-mono text-gray-500 mb-2">CORE STACK</div>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="tag">XGBoost</span>
-                                    <span class="tag">Random Forest</span>
-                                    <span class="tag">Pandas/NumPy</span>
-                                    <span class="tag">Matplotlib</span>
+                        <div class="font-mono text-bloodRed text-sm mb-4 tracking-widest">CHAPTER 02 // DEC 2025</div>
+                        <h3 class="font-display font-bold text-3xl mb-2">Building The Foundation</h3>
+                        <h4 class="text-xl text-white/70 mb-6">Founding ML Engineer @ INFILTRIX</h4>
+                        
+                        <div class="space-y-4 text-textMuted font-sans leading-relaxed">
+                            <p>
+                                Joining an AI security startup required building everything from the absolute ground up. As the Founding ML Engineer, I architected the core machine learning infrastructure.
+                            </p>
+                            <p>
+                                By designing scalable data pipelines and establishing rigorous, automated model evaluation protocols, I ensured absolute environment parity. My hyperparameter tuning workflows aggressively cut computational overhead by 25% while meeting strict sub-second real-time latency targets.
+                            </p>
+                            <div class="mt-6 p-4 border border-bloodRed/20 bg-bloodRed/5 flex flex-col gap-2">
+                                <div class="flex justify-between items-center border-b border-bloodRed/10 pb-2">
+                                    <span class="font-mono text-xs">INFERENCE PRECISION BOOST</span>
+                                    <span class="font-bold text-bloodRed text-xl">+40%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-mono text-xs">LATENCY TARGET</span>
+                                    <span class="font-bold text-white text-xl">Sub-second</span>
                                 </div>
                             </div>
                         </div>
@@ -245,120 +316,143 @@
         </div>
     </section>
 
-    <section id="projects" class="py-24 relative z-10 border-t border-borderLight">
+    <section id="architectures" class="py-32 bg-[#050505] border-t border-white/5 relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="reveal mb-16">
-                <h2 class="text-4xl font-bold mb-4">Production Deployments</h2>
-                <p class="text-textMuted font-mono text-sm">Live, interactive models hosted on Hugging Face Spaces.</p>
+            
+            <div class="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 gs-reveal">
+                <div>
+                    <h2 class="font-display font-bold text-5xl md:text-7xl uppercase tracking-tighter">Production <br><span class="text-stroke">Architectures</span></h2>
+                    <p class="font-mono text-textMuted mt-4">5 Live Hugging Face Deployments. 1000+ Inferences.</p>
+                </div>
+                <a href="https://huggingface.co/Sarvjais12" target="_blank" class="font-mono text-sm border-b border-bloodRed pb-1 hover:text-bloodRed transition-colors w-max">
+                    VIEW_HUGGINGFACE_PROFILE_↗
+                </a>
             </div>
 
-            <div class="space-y-12">
+            <div class="space-y-32">
                 
-                <div class="tilt-card rounded-2xl p-8 lg:p-10 reveal border-gradient-hover" data-tilt data-tilt-max="2" data-tilt-speed="400">
-                    <div class="tilt-card-inner grid lg:grid-cols-5 gap-8 items-center">
-                        <div class="lg:col-span-3 space-y-6">
-                            <div class="inline-flex items-center gap-2 text-xs font-mono text-neonCyan bg-neonCyan/10 px-3 py-1 rounded">
-                                <span class="w-1.5 h-1.5 rounded-full bg-neonCyan animate-pulse"></span> SYSTEM: LIVE
-                            </div>
-                            <h3 class="text-3xl font-bold text-white">Adaptive RAG Agent</h3>
-                            <div class="space-y-4 text-textMuted">
-                                <p><strong class="text-white">Architecture:</strong> Built a stateful Retrieval-Augmented Generation (RAG) agent utilizing LangGraph. The system features dynamic routing capabilities that intelligently select search depth based on query complexity.</p>
-                                <p><strong class="text-white">The Engineering:</strong> Implemented persistent memory orchestration. This fundamentally eliminates the "context amnesia" typically seen in complex, multi-turn AI interactions.</p>
-                                <p><strong class="text-white">Optimization:</strong> By integrating multi-tier retrieval (Light, Standard, and Deep search states), the architecture successfully <span class="text-neonCyan font-bold">reduced redundant vector database search costs by 30%</span>.</p>
-                            </div>
-                            <div class="flex flex-wrap gap-2 pt-2">
-                                <span class="tag">LangGraph</span> <span class="tag">LangChain</span> <span class="tag">FAISS</span> <span class="tag">LLMs</span>
-                            </div>
+                <div class="project-block flex flex-col lg:flex-row gap-12 items-center gs-reveal">
+                    <div class="w-full lg:w-1/2 order-2 lg:order-1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="font-mono text-bloodRed text-sm tracking-widest">01 // GEN_AI</span>
+                            <span class="flex items-center gap-2 text-xs border border-white/20 px-2 py-1 rounded"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> LIVE SPACE</span>
                         </div>
-                        <div class="lg:col-span-2 flex flex-col gap-4">
-                            <div class="bg-surface border border-borderLight rounded-xl p-6 aspect-video flex flex-col items-center justify-center text-center group hover:border-neonCyan transition-colors">
-                                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🤖</div>
-                                <h4 class="font-bold text-white mb-2">Interact with the Agent</h4>
-                                <a href="https://huggingface.co/spaces/Sarvjais12/adaptive-rag-assistant" target="_blank" class="text-sm font-mono text-neonCyan hover:underline">Launch HF Space →</a>
+                        <h3 class="font-display font-bold text-4xl mb-6">Adaptive RAG Agent</h3>
+                        <p class="text-textMuted text-lg mb-6 leading-relaxed">
+                            A highly optimized, stateful Retrieval-Augmented Generation pipeline. By leveraging <strong class="text-white">LangGraph</strong> for dynamic routing and persistent memory orchestration, this architecture completely eliminates context amnesia in multi-turn dialogues.
+                        </p>
+                        <ul class="space-y-3 text-textMuted font-mono text-sm mb-8">
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Integrated multi-tier retrieval (Light, Standard, Deep)</li>
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Reduced redundant vector search costs by 30%</li>
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Built with LangChain, FAISS, and LLMs</li>
+                        </ul>
+                        <div class="flex gap-4">
+                            <a href="https://huggingface.co/spaces/Sarvjais12/adaptive-rag-assistant" target="_blank" class="btn-red text-sm">Deploy Agent</a>
+                            <a href="https://github.com/Sarvjais12/adaptive_rag_using_langgraph" target="_blank" class="px-6 py-3 border border-white/20 hover:border-white transition-colors font-mono text-sm uppercase flex items-center">Source</a>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 order-1 lg:order-2">
+                        <div class="aspect-square bg-[#0a0a0a] border border-white/5 rounded-2xl relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjZmYwMDMzIiBmaWxsLW9wYWNpdHk9IjAuMDUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwYzUuNTIzIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc3IDEwLTEwIDEwLTEwLTQuNDc3LTEwLTEwIDQuNDc3LTEwIDEwLTEweiIvPjwvZz48L3N2Zz4=')] opacity-20 group-hover:scale-110 transition-transform duration-1000"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-8xl opacity-80 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_30px_rgba(255,0,51,0.5)]">🧠</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="tilt-card rounded-2xl p-8 lg:p-10 reveal border-gradient-hover" data-tilt data-tilt-max="2" data-tilt-speed="400">
-                    <div class="tilt-card-inner grid lg:grid-cols-5 gap-8 items-center">
-                        <div class="lg:col-span-3 space-y-6">
-                            <div class="inline-flex items-center gap-2 text-xs font-mono text-neonPurple bg-neonPurple/10 px-3 py-1 rounded">
-                                <span class="w-1.5 h-1.5 rounded-full bg-neonPurple animate-pulse"></span> SYSTEM: LIVE
-                            </div>
-                            <h3 class="text-3xl font-bold text-white">Spatial-Temporal Deepfake Detector</h3>
-                            <div class="space-y-4 text-textMuted">
-                                <p><strong class="text-white">Architecture:</strong> Architected a high-fidelity hybrid neural network combining an EfficientNet-B0 backbone with Bi-LSTM sequential layers, entirely built in PyTorch.</p>
-                                <p><strong class="text-white">The Engineering:</strong> Designed specifically to detect GAN-generated temporal jitters and inconsistencies that frame-by-frame classifiers miss. The pipeline processes raw video streams and converts them into complex 5D tensors.</p>
-                                <p><strong class="text-white">Performance:</strong> Enables robust, real-time sequential anomaly detection and micro-expression analysis for media authenticity verification.</p>
-                            </div>
-                            <div class="flex flex-wrap gap-2 pt-2">
-                                <span class="tag">PyTorch</span> <span class="tag">EfficientNet-B0</span> <span class="tag">Bi-LSTM</span> <span class="tag">Computer Vision</span>
+                <div class="project-block flex flex-col lg:flex-row gap-12 items-center gs-reveal">
+                    <div class="w-full lg:w-1/2">
+                        <div class="aspect-square bg-[#0a0a0a] border border-white/5 rounded-2xl relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjZmYwMDMzIiBmaWxsLW9wYWNpdHk9IjAuMDUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTAgMGgyMHYyMEgwVjB6bTEwIDEwYzIuNzYxIDAgNSA0LjQ3NyA1IDEwcy00LjQ3NyAxMC0xMCAxMC0xMC00LjQ3Ny0xMC0xMCA0LjQ3Ny0xMCAxMC0xMHoiLz48L2c+PC9zdmc+')] opacity-20 group-hover:scale-110 transition-transform duration-1000"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-8xl opacity-80 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_30px_rgba(255,0,51,0.5)]">👁️</div>
                             </div>
                         </div>
-                        <div class="lg:col-span-2 flex flex-col gap-4">
-                            <div class="bg-surface border border-borderLight rounded-xl p-6 aspect-video flex flex-col items-center justify-center text-center group hover:border-neonPurple transition-colors">
-                                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🎭</div>
-                                <h4 class="font-bold text-white mb-2">Test Video Authenticity</h4>
-                                <a href="https://huggingface.co/spaces/Sarvjais12/Deepfake_Video_Detection" target="_blank" class="text-sm font-mono text-neonPurple hover:underline">Launch HF Space →</a>
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="font-mono text-bloodRed text-sm tracking-widest">02 // COMP_VISION</span>
+                            <span class="flex items-center gap-2 text-xs border border-white/20 px-2 py-1 rounded"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> LIVE SPACE</span>
+                        </div>
+                        <h3 class="font-display font-bold text-4xl mb-6">Spatial-Temporal Deepfake Detector</h3>
+                        <p class="text-textMuted text-lg mb-6 leading-relaxed">
+                            A hybrid neural network combining an <strong class="text-white">EfficientNet-B0</strong> backbone with <strong class="text-white">Bi-LSTM</strong> temporal layers. Built entirely in PyTorch to detect GAN-generated media that frame-by-frame classifiers miss.
+                        </p>
+                        <ul class="space-y-3 text-textMuted font-mono text-sm mb-8">
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Processes raw video streams into complex 5D tensors</li>
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Analyzes sequential micro-expressions & temporal jitters</li>
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Real-time anomaly detection inference</li>
+                        </ul>
+                        <div class="flex gap-4">
+                            <a href="https://huggingface.co/spaces/Sarvjais12/Deepfake_Video_Detection" target="_blank" class="btn-red text-sm">Analyze Video</a>
+                            <a href="https://github.com/Sarvjais12/deepfake_video_detection" target="_blank" class="px-6 py-3 border border-white/20 hover:border-white transition-colors font-mono text-sm uppercase flex items-center">Source</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-block flex flex-col lg:flex-row gap-12 items-center gs-reveal">
+                    <div class="w-full lg:w-1/2 order-2 lg:order-1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="font-mono text-bloodRed text-sm tracking-widest">03 // HEALTH_AI</span>
+                            <span class="flex items-center gap-2 text-xs border border-white/20 px-2 py-1 rounded"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> LIVE SPACE</span>
+                        </div>
+                        <h3 class="font-display font-bold text-4xl mb-6">Interpretable Pneumonia AI</h3>
+                        <p class="text-textMuted text-lg mb-6 leading-relaxed">
+                            Solving the "Black Box" problem in medical AI. Deployed a VGG16 Convolutional Neural Network specifically tuned for chest X-ray classification, completely integrated with a custom <strong class="text-white">Grad-CAM</strong> interpretability layer.
+                        </p>
+                        <ul class="space-y-3 text-textMuted font-mono text-sm mb-8">
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Generates visual diagnostic heatmaps for clinicians</li>
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> Resolved uint8 to float32 tensor casting bugs in production</li>
+                            <li class="flex gap-3"><span class="text-bloodRed">▹</span> 100% mathematical precision during live inference</li>
+                        </ul>
+                        <div class="flex gap-4">
+                            <a href="https://huggingface.co/spaces/Sarvjais12/Pneumonia-Detector-AI" target="_blank" class="btn-red text-sm">Run Diagnosis</a>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 order-1 lg:order-2">
+                        <div class="aspect-square bg-[#0a0a0a] border border-white/5 rounded-2xl relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjZmYwMDMzIiBmaWxsLW9wYWNpdHk9IjAuMDUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTAgMGgxMHYxMEgwVjB6bTUgNWMxLjM4MSAwIDIuNSAyLjIzOSAyLjUgNXMtMS4xMTkgNS0yLjUgNS0yLjUtMi4yMzktMi41LTUgMS4xMTktNSAyLjUtNXoiLz48L2c+PC9zdmc+')] opacity-20 group-hover:scale-110 transition-transform duration-1000"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-8xl opacity-80 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_30px_rgba(255,0,51,0.5)]">🫁</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="tilt-card rounded-2xl p-8 lg:p-10 reveal border-gradient-hover" data-tilt data-tilt-max="2" data-tilt-speed="400">
-                    <div class="tilt-card-inner grid lg:grid-cols-5 gap-8 items-center">
-                        <div class="lg:col-span-3 space-y-6">
-                            <div class="inline-flex items-center gap-2 text-xs font-mono text-blue-400 bg-blue-400/10 px-3 py-1 rounded">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> SYSTEM: LIVE
-                            </div>
-                            <h3 class="text-3xl font-bold text-white">Interpretable Pneumonia Detector</h3>
-                            <div class="space-y-4 text-textMuted">
-                                <p><strong class="text-white">Architecture:</strong> Deployed a VGG16 Convolutional Neural Network specifically tuned for medical imaging and chest X-ray classification.</p>
-                                <p><strong class="text-white">The Engineering:</strong> Solved the "Black Box" problem by integrating a custom Grad-CAM interpretability layer, which generates visual diagnostic heatmaps to explain the model's decision-making process to clinicians.</p>
-                                <p><strong class="text-white">Optimization:</strong> Debugged and resolved complex uint8 to float32 tensor type-casting issues in the production pipeline, ensuring 100% mathematical precision during live inference.</p>
-                            </div>
-                            <div class="flex flex-wrap gap-2 pt-2">
-                                <span class="tag">VGG16 CNN</span> <span class="tag">Grad-CAM</span> <span class="tag">TensorFlow/PyTorch</span>
-                            </div>
+                <div class="grid md:grid-cols-2 gap-12 gs-reveal">
+                    <div class="glass-panel p-8 rounded-2xl group flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="font-mono text-bloodRed text-xs tracking-widest">04 // ENV_AI</span>
+                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                         </div>
-                        <div class="lg:col-span-2 flex flex-col gap-4">
-                            <div class="bg-surface border border-borderLight rounded-xl p-6 aspect-video flex flex-col items-center justify-center text-center group hover:border-blue-400 transition-colors">
-                                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🫁</div>
-                                <h4 class="font-bold text-white mb-2">View Grad-CAM Heatmaps</h4>
-                                <a href="https://huggingface.co/spaces/Sarvjais12/Pneumonia-Detector-AI" target="_blank" class="text-sm font-mono text-blue-400 hover:underline">Launch HF Space →</a>
-                            </div>
+                        <h3 class="font-display font-bold text-2xl mb-4 group-hover:text-bloodRed transition-colors">Pollution Anomaly API</h3>
+                        <p class="text-textMuted text-sm leading-relaxed mb-8 flex-grow">
+                            Engineered an Isolation Forest algorithm applied to multivariate time-series data. Built to automatically detect air quality spikes and hardware sensor failures in real-time.
+                        </p>
+                        <div class="flex gap-2 mb-6">
+                            <span class="tag-red">Isolation Forest</span> <span class="tag-red">Time-Series</span>
                         </div>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="tilt-card rounded-2xl p-8 reveal border-gradient-hover" data-tilt data-tilt-max="3" data-tilt-speed="400">
-                        <div class="tilt-card-inner space-y-4 flex flex-col h-full">
-                            <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded w-max">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE
-                            </div>
-                            <h3 class="text-2xl font-bold text-white">Pollution Anomaly API</h3>
-                            <p class="text-textMuted flex-grow">Engineered an Isolation Forest algorithm system applied to multivariate time-series data. Built to automatically detect air quality spikes and hardware sensor failures in environmental monitoring setups.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="tag">Isolation Forest</span> <span class="tag">Time-Series</span>
-                            </div>
-                            <a href="https://huggingface.co/spaces/Sarvjais12/Pollution_Anomaly_Detector" target="_blank" class="text-sm font-mono text-emerald-400 hover:underline mt-auto pt-4 border-t border-borderLight block">Launch Space →</a>
-                        </div>
+                        <a href="https://huggingface.co/spaces/Sarvjais12/Pollution_Anomaly_Detector" target="_blank" class="mt-auto font-mono text-sm border-t border-white/10 pt-4 hover:text-bloodRed flex justify-between items-center transition-colors">
+                            Launch Space <span class="text-lg">→</span>
+                        </a>
                     </div>
 
-                    <div class="tilt-card rounded-2xl p-8 reveal border-gradient-hover" data-tilt data-tilt-max="3" data-tilt-speed="400">
-                        <div class="tilt-card-inner space-y-4 flex flex-col h-full">
-                            <div class="inline-flex items-center gap-2 text-xs font-mono text-pink-400 bg-pink-400/10 px-3 py-1 rounded w-max">
-                                <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></span> LIVE
-                            </div>
-                            <h3 class="text-2xl font-bold text-white">Diabetes Risk Predictor</h3>
-                            <p class="text-textMuted flex-grow">The deployed version of my internship research. An ensemble ML system (Random Forest, XGBoost) featuring an interactive risk assessment interface with live feature importance visualizations.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="tag">XGBoost</span> <span class="tag">Scikit-learn</span>
-                            </div>
-                            <a href="https://huggingface.co/spaces/Sarvjais12/diabetes-prediction-app" target="_blank" class="text-sm font-mono text-pink-400 hover:underline mt-auto pt-4 border-t border-borderLight block">Launch Space →</a>
+                    <div class="glass-panel p-8 rounded-2xl group flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="font-mono text-bloodRed text-xs tracking-widest">05 // HEALTH_AI</span>
+                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                         </div>
+                        <h3 class="font-display font-bold text-2xl mb-4 group-hover:text-bloodRed transition-colors">Diabetes Risk Predictor</h3>
+                        <p class="text-textMuted text-sm leading-relaxed mb-8 flex-grow">
+                            The deployed version of my Fox Trading research. An ensemble ML system (Random Forest, XGBoost) featuring an interactive risk assessment interface with live feature importance visualizations.
+                        </p>
+                        <div class="flex gap-2 mb-6">
+                            <span class="tag-red">XGBoost</span> <span class="tag-red">Scikit-learn</span>
+                        </div>
+                        <a href="https://huggingface.co/spaces/Sarvjais12/diabetes-prediction-app" target="_blank" class="mt-auto font-mono text-sm border-t border-white/10 pt-4 hover:text-bloodRed flex justify-between items-center transition-colors">
+                            Launch Space <span class="text-lg">→</span>
+                        </a>
                     </div>
                 </div>
 
@@ -366,86 +460,165 @@
         </div>
     </section>
 
-    <section id="writing" class="py-24 relative z-10 border-t border-borderLight bg-[#030303]">
+    <section id="research" class="py-32 bg-[#000] border-t border-white/5 relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="reveal mb-16">
-                <h2 class="text-4xl font-bold mb-4">Technical Writing</h2>
-                <p class="text-textMuted font-mono text-sm">Deep-dive tutorials on MLOps, deployment, and architectures.</p>
+            <div class="mb-16 text-center gs-reveal">
+                <h2 class="font-display font-bold text-4xl md:text-6xl uppercase tracking-tighter">The <span class="text-stroke">Manifesto</span></h2>
+                <p class="font-mono text-textMuted mt-4">Deep-dive technical research and architectural breakdowns.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <a href="https://dev.to/sarvagya_jaiswal/building-an-adaptive-rag-agent-with-langgraph-dynamic-routing-and-stateful-memory-3f05" target="_blank" class="tilt-card rounded-xl p-8 flex flex-col border-gradient-hover reveal group" data-tilt data-tilt-max="2">
-                    <div class="text-xs font-mono text-neonCyan mb-3">DEV.TO • ARCHITECTURE</div>
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-neonCyan transition-colors">Building an Adaptive RAG Agent with LangGraph</h3>
-                    <p class="text-textMuted mb-6 leading-relaxed">A comprehensive guide on transitioning from basic retrieval to dynamic routing. Explains how to use stateful memory to build highly efficient and context-aware RAG pipelines.</p>
-                    <div class="mt-auto font-mono text-sm text-white flex items-center gap-2 group-hover:gap-4 transition-all">Read Article <span class="text-neonCyan">→</span></div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <a href="https://dev.to/sarvagya_jaiswal/building-an-adaptive-rag-agent-with-langgraph-dynamic-routing-and-stateful-memory-3f05" target="_blank" class="glass-panel p-8 rounded-xl group gs-reveal relative overflow-hidden">
+                    <div class="absolute inset-0 bg-bloodRed/0 group-hover:bg-bloodRed/5 transition-colors"></div>
+                    <div class="relative z-10">
+                        <div class="font-mono text-bloodRed text-xs mb-4">DEV.TO // ARCHITECTURE</div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-bloodRed transition-colors">Building an Adaptive RAG Agent with LangGraph</h3>
+                        <p class="text-textMuted text-sm leading-relaxed mb-6">A comprehensive guide on transitioning from basic retrieval to dynamic routing, explaining how to use stateful memory to build highly efficient pipelines.</p>
+                        <div class="font-mono text-xs uppercase flex items-center gap-2">Read Publication <span class="group-hover:translate-x-2 transition-transform">→</span></div>
+                    </div>
                 </a>
 
-                <a href="https://dev.to/sarvagya_jaiswal/catching-deepfakes-in-real-time-a-spatial-temporal-approach-with-efficientnet-b0-and-bi-lstm-80p" target="_blank" class="tilt-card rounded-xl p-8 flex flex-col border-gradient-hover reveal group" data-tilt data-tilt-max="2" style="transition-delay: 100ms;">
-                    <div class="text-xs font-mono text-neonPurple mb-3">DEV.TO • COMPUTER VISION</div>
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-neonPurple transition-colors">Catching Deepfakes in Real-Time</h3>
-                    <p class="text-textMuted mb-6 leading-relaxed">An architectural breakdown of the spatial-temporal approach. Details the integration of EfficientNet-B0 and Bi-LSTM networks to analyze sequential video frames for AI-generated artifacts.</p>
-                    <div class="mt-auto font-mono text-sm text-white flex items-center gap-2 group-hover:gap-4 transition-all">Read Article <span class="text-neonPurple">→</span></div>
+                <a href="https://dev.to/sarvagya_jaiswal/catching-deepfakes-in-real-time-a-spatial-temporal-approach-with-efficientnet-b0-and-bi-lstm-80p" target="_blank" class="glass-panel p-8 rounded-xl group gs-reveal relative overflow-hidden">
+                    <div class="absolute inset-0 bg-bloodRed/0 group-hover:bg-bloodRed/5 transition-colors"></div>
+                    <div class="relative z-10">
+                        <div class="font-mono text-bloodRed text-xs mb-4">DEV.TO // COMPUTER VISION</div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-bloodRed transition-colors">Catching Deepfakes in Real-Time</h3>
+                        <p class="text-textMuted text-sm leading-relaxed mb-6">An architectural breakdown of the spatial-temporal approach, detailing the integration of EfficientNet-B0 and Bi-LSTM networks to analyze sequential video frames.</p>
+                        <div class="font-mono text-xs uppercase flex items-center gap-2">Read Publication <span class="group-hover:translate-x-2 transition-transform">→</span></div>
+                    </div>
                 </a>
 
-                <a href="https://medium.com/@jaiswal.sarvagya1/goodbye-it-works-on-my-machine-containerizing-ml-demos-with-gradio-and-docker-80750246a62d" target="_blank" class="tilt-card rounded-xl p-8 flex flex-col border-gradient-hover reveal group" data-tilt data-tilt-max="2">
-                    <div class="text-xs font-mono text-white mb-3">MEDIUM • MLOPS</div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Containerizing ML Demos with Gradio & Docker</h3>
-                    <p class="text-textMuted mb-6 leading-relaxed">Goodbye "It works on my machine." A step-by-step MLOps tutorial on standardizing your AI app deployments to ensure perfect environment parity across any cloud host.</p>
-                    <div class="mt-auto font-mono text-sm text-white flex items-center gap-2 group-hover:gap-4 transition-all">Read Article <span>→</span></div>
+                <a href="https://medium.com/@jaiswal.sarvagya1/goodbye-it-works-on-my-machine-containerizing-ml-demos-with-gradio-and-docker-80750246a62d" target="_blank" class="glass-panel p-8 rounded-xl group gs-reveal relative overflow-hidden">
+                    <div class="absolute inset-0 bg-bloodRed/0 group-hover:bg-bloodRed/5 transition-colors"></div>
+                    <div class="relative z-10">
+                        <div class="font-mono text-bloodRed text-xs mb-4">MEDIUM // MLOPS</div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-bloodRed transition-colors">Containerizing ML Demos with Gradio & Docker</h3>
+                        <p class="text-textMuted text-sm leading-relaxed mb-6">Goodbye "It works on my machine." A step-by-step MLOps tutorial on standardizing your AI app deployments to ensure perfect environment parity.</p>
+                        <div class="font-mono text-xs uppercase flex items-center gap-2">Read Publication <span class="group-hover:translate-x-2 transition-transform">→</span></div>
+                    </div>
                 </a>
 
-                <a href="https://medium.com/@jaiswal.sarvagya1/beyond-the-black-box-deploying-an-interpretable-medical-ai-with-grad-cam-tensorflow-and-hf-space-875117b7c7bf" target="_blank" class="tilt-card rounded-xl p-8 flex flex-col border-gradient-hover reveal group" data-tilt data-tilt-max="2" style="transition-delay: 100ms;">
-                    <div class="text-xs font-mono text-blue-400 mb-3">MEDIUM • INTERPRETABILITY</div>
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">Deploying Interpretable Medical AI</h3>
-                    <p class="text-textMuted mb-6 leading-relaxed">Solving the "black box" problem. Learn how to deploy computer vision models with Grad-CAM layers to generate visual heatmaps, essential for healthcare technology compliance.</p>
-                    <div class="mt-auto font-mono text-sm text-white flex items-center gap-2 group-hover:gap-4 transition-all">Read Article <span class="text-blue-400">→</span></div>
+                <a href="https://medium.com/@jaiswal.sarvagya1/beyond-the-black-box-deploying-an-interpretable-medical-ai-with-grad-cam-tensorflow-and-hf-space-875117b7c7bf" target="_blank" class="glass-panel p-8 rounded-xl group gs-reveal relative overflow-hidden">
+                    <div class="absolute inset-0 bg-bloodRed/0 group-hover:bg-bloodRed/5 transition-colors"></div>
+                    <div class="relative z-10">
+                        <div class="font-mono text-bloodRed text-xs mb-4">MEDIUM // INTERPRETABILITY</div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-bloodRed transition-colors">Deploying Interpretable Medical AI</h3>
+                        <p class="text-textMuted text-sm leading-relaxed mb-6">Solving the "black box" problem. Learn how to deploy computer vision models with Grad-CAM layers to generate visual heatmaps for healthcare compliance.</p>
+                        <div class="font-mono text-xs uppercase flex items-center gap-2">Read Publication <span class="group-hover:translate-x-2 transition-transform">→</span></div>
+                    </div>
                 </a>
             </div>
         </div>
     </section>
 
-    <footer class="border-t border-borderLight py-12 text-center bg-base relative z-10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center justify-center space-y-4">
-            <div class="text-2xl font-bold text-white tracking-tighter">SJ<span class="text-neonCyan">.</span></div>
-            <p class="text-textMuted text-sm font-mono">© 2026 Sarvagya Jaiswal. Engineered for scale.</p>
-            <div class="flex gap-6 mt-4">
-                <a href="https://github.com/Sarvjais12" class="text-textMuted hover:text-white transition-colors">GitHub</a>
-                <a href="https://linkedin.com/in/sarvagyajaiswal" class="text-textMuted hover:text-white transition-colors">LinkedIn</a>
-                <a href="mailto:jaiswal.sarvagya1@gmail.com" class="text-textMuted hover:text-white transition-colors">Email</a>
+    <footer class="py-32 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 red-gradient-bg opacity-30"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="font-display font-bold text-5xl md:text-8xl uppercase tracking-tighter mb-8 text-stroke">Initiate <br><span class="text-white">Contact.</span></h2>
+            <p class="text-textMuted font-mono mb-12">Seeking Summer 2026 Internships in AI/ML & Computer Vision.</p>
+            
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="mailto:jaiswal.sarvagya1@gmail.com" class="btn-red">Email Payload</a>
+                <a href="https://linkedin.com/in/sarvagyajaiswal" target="_blank" class="px-8 py-4 border border-white/20 hover:border-bloodRed transition-colors font-mono text-sm uppercase bg-black">LinkedIn</a>
+                <a href="https://github.com/Sarvjais12" target="_blank" class="px-8 py-4 border border-white/20 hover:border-bloodRed transition-colors font-mono text-sm uppercase bg-black">GitHub</a>
+            </div>
+            
+            <div class="mt-32 font-mono text-xs text-white/30 tracking-widest uppercase">
+                © 2026 Sarvagya Jaiswal // Engineered for Scale
             </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <script>
-        // Cursor Glow Logic
-        const glowBg = document.getElementById('glow-bg');
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            glowBg.style.setProperty('--cursor-x', `${x}px`);
-            glowBg.style.setProperty('--cursor-y', `${y}px`);
+        // 1. Initialize Lenis Smooth Scrolling
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        // 2. Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 3. Hero Animations (On Load)
+        const tlHero = gsap.timeline();
+        tlHero.to(".hero-subtext", {y: 0, duration: 1, ease: "power4.out", delay: 0.2})
+              .to(".hero-title", {y: 0, duration: 1.2, stagger: 0.15, ease: "power4.out"}, "-=0.8")
+              .to(".hero-desc", {y: 0, opacity: 1, duration: 1, ease: "power3.out"}, "-=0.6")
+              .to(".hero-actions", {opacity: 1, duration: 1}, "-=0.4");
+
+        // 4. The Journey Timeline Animation
+        // Draw the red line down as user scrolls
+        gsap.to("#timeline-progress", {
+            scrollTrigger: {
+                trigger: "#timeline-container",
+                start: "top center",
+                end: "bottom center",
+                scrub: 1 // smooth scrubbing
+            },
+            height: "100%",
+            ease: "none"
         });
 
-        // Scroll Reveal Logic
-        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+        // Light up timeline nodes and fade in cards
+        const sections = document.querySelectorAll('.timeline-section');
+        sections.forEach(section => {
+            const node = section.querySelector('.timeline-node');
+            const panel = section.querySelector('.glass-panel');
+            
+            // Node lights up
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top center",
+                onEnter: () => node.classList.add('active'),
+                onLeaveBack: () => node.classList.remove('active')
             });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // Nav Glass Effect on Scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'rgba(0, 0, 0, 0.8)';
-            } else {
-                nav.style.background = 'rgba(0, 0, 0, 0.6)';
-            }
+            // Card fades in from left or right
+            gsap.from(panel, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                },
+                x: panel.classList.contains('gs-fade-right') ? -50 : 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out"
+            });
+        });
+
+        // 5. Standard Reveal Animations for other sections
+        const revealElements = document.querySelectorAll('.gs-reveal');
+        revealElements.forEach(el => {
+            gsap.fromTo(el, 
+                { y: 50, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%", // trigger when top of element hits 85% of viewport
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out"
+                }
+            );
         });
     </script>
 </body>
