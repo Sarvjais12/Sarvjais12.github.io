@@ -11,7 +11,9 @@
     <meta property="og:url" content="https://sarvjais12.github.io">
     <meta property="og:title" content="Sarvagya Jaiswal | AI Engineer & ML Architect">
     <meta property="og:description" content="Building intelligent systems with LLMs, Computer Vision, and scalable ML pipelines. 6+ production deployments.">
-    <meta property="og:image" content="https://sarvjais12.github.io/og-image.jpg"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="https://sarvjais12.github.io/og-image.jpg">
+    
+    <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://sarvjais12.github.io">
     <meta property="twitter:title" content="Sarvagya Jaiswal | AI Engineer">
     <meta property="twitter:description" content="Building intelligent systems with LLMs and Computer Vision">
@@ -96,7 +98,6 @@
             scroll-behavior: auto;
         }
         
-        /* Disable custom cursor globally on touch devices */
         @media (hover: none) and (pointer: coarse) {
             body {
                 cursor: auto !important;
@@ -119,7 +120,6 @@
             overflow-x: hidden;
         }
         
-        /* Custom Cursor */
         .cursor-dot,
         .cursor-outline {
             position: fixed;
@@ -129,7 +129,7 @@
             border-radius: 50%;
             z-index: 9999;
             pointer-events: none;
-            mix-blend-mode: difference; /* Added for better visibility */
+            mix-blend-mode: difference;
         }
         
         .cursor-dot {
@@ -152,7 +152,6 @@
             border-color: #ff0033;
         }
         
-        /* Noise Texture */
         .noise-overlay {
             position: fixed;
             top: 0;
@@ -165,18 +164,16 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
-        /* WebGL Canvas */
         #webgl-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw; /* Changed to viewport width/height to prevent scrolling issues */
+            width: 100vw;
             height: 100vh;
             z-index: -1;
             pointer-events: none;
         }
         
-        /* Glassmorphism */
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -191,7 +188,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* Text Effects */
         .text-gradient {
             background: linear-gradient(135deg, #ffffff 0%, #ff0033 100%);
             -webkit-background-clip: text;
@@ -214,7 +210,6 @@
             text-shadow: 0 0 10px rgba(255, 0, 51, 0.5), 0 0 20px rgba(255, 0, 51, 0.3);
         }
         
-        /* Magnetic Button */
         .magnetic-btn {
             position: relative;
             display: inline-flex;
@@ -229,7 +224,7 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             border: none;
-            cursor: pointer; /* Fallback for mobile */
+            cursor: pointer;
             overflow: hidden;
             transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -266,7 +261,6 @@
             background: rgba(255, 0, 51, 0.1);
         }
         
-        /* Skill Bars */
         .skill-bar {
             position: relative;
             height: 4px;
@@ -285,7 +279,6 @@
             box-shadow: 0 0 10px #ff0033;
         }
         
-        /* Timeline */
         .timeline-line {
             position: absolute;
             left: 50%;
@@ -315,7 +308,6 @@
             box-shadow: 0 0 30px rgba(255, 0, 51, 0.8);
         }
         
-        /* Project Cards */
         .project-card {
             position: relative;
             overflow: hidden;
@@ -345,7 +337,6 @@
             border-color: rgba(255, 0, 51, 0.3);
         }
         
-        /* Blog Cards */
         .blog-card {
             position: relative;
             overflow: hidden;
@@ -365,7 +356,6 @@
             opacity: 0.6;
         }
         
-        /* Tag Styles */
         .tech-tag {
             display: inline-flex;
             align-items: center;
@@ -384,7 +374,6 @@
             transform: translateY(-2px);
         }
         
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -402,19 +391,16 @@
             background: #cc0029;
         }
         
-        /* Selection */
         ::selection {
             background: rgba(255, 0, 51, 0.3);
             color: #fff;
         }
         
-        /* Section Reveal */
         .reveal-section {
             opacity: 0;
             transform: translateY(50px);
         }
         
-        /* Status Indicator */
         .status-dot {
             width: 8px;
             height: 8px;
@@ -429,7 +415,6 @@
             50% { opacity: 0.5; }
         }
         
-        /* Grid Pattern */
         .grid-pattern {
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -442,9 +427,7 @@
 
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
-    
     <div class="noise-overlay"></div>
-    
     <canvas id="webgl-canvas"></canvas>
 
     <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 opacity-0 -translate-y-full">
@@ -1439,7 +1422,6 @@
     </footer>
 
     <script>
-        // Initialize Lenis Smooth Scroll
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1456,10 +1438,8 @@
         }
         requestAnimationFrame(raf);
 
-        // GSAP ScrollTrigger Setup
         gsap.registerPlugin(ScrollTrigger);
 
-        // Update ScrollTrigger on Lenis scroll
         lenis.on('scroll', ScrollTrigger.update);
 
         gsap.ticker.add((time) => {
@@ -1468,7 +1448,6 @@
 
         gsap.ticker.lagSmoothing(0);
 
-        // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         const magneticElements = document.querySelectorAll('.magnetic-text, .magnetic-btn');
@@ -1495,7 +1474,6 @@
         }
         animateCursor();
 
-        // Magnetic Effect
         magneticElements.forEach(elem => {
             elem.addEventListener('mouseenter', () => {
                 cursorOutline.classList.add('hover');
@@ -1520,7 +1498,6 @@
             });
         });
 
-        // Hero Animations
         const heroTl = gsap.timeline({ delay: 0.5 });
         
         heroTl.to('.hero-anim', {
@@ -1531,7 +1508,6 @@
             ease: "power4.out"
         });
 
-        // Navigation Show on Scroll
         const navbar = document.getElementById('navbar');
         
         ScrollTrigger.create({
@@ -1546,7 +1522,6 @@
             }
         });
 
-        // Section Reveals
         const revealSections = document.querySelectorAll('.reveal-section');
         
         revealSections.forEach(section => {
@@ -1566,7 +1541,6 @@
             );
         });
 
-        // Timeline Animation
         const timelineProgress = document.getElementById('timeline-progress');
         const timelineNodes = document.querySelectorAll('.timeline-node');
         
@@ -1590,7 +1564,6 @@
             });
         });
 
-        // Skill Bars Animation
         const skillBars = document.querySelectorAll('.skill-progress');
         
         skillBars.forEach(bar => {
@@ -1609,7 +1582,6 @@
             });
         });
 
-        // Project Cards Mouse Effect
         const projectCards = document.querySelectorAll('.project-card');
         
         projectCards.forEach(card => {
@@ -1623,73 +1595,101 @@
             });
         });
 
-        // WebGL Background
+        // ----------------------------------------------------
+        // ENHANCED WEBGL BACKGROUND - REACTIVE & SMOOTH
+        // ----------------------------------------------------
         const canvas = document.getElementById('webgl-canvas');
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         const scene = new THREE.Scene();
+        // Add deep 3D fog
+        scene.fog = new THREE.FogExp2(0x050505, 0.015);
+
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 30;
 
-        // Create particles
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 1500;
+        const particlesCount = 3000;
         const posArray = new Float32Array(particlesCount * 3);
 
-        for(let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 100;
+        for(let i = 0; i < particlesCount * 3; i+=3) {
+            // Distribute in a wider, deeper field for parallax
+            posArray[i] = (Math.random() - 0.5) * 150;     // x
+            posArray[i+1] = (Math.random() - 0.5) * 150;   // y
+            posArray[i+2] = (Math.random() - 0.5) * 100;   // z
         }
 
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.1,
+            size: 0.15,
             color: 0xff0033,
             transparent: true,
-            opacity: 0.6,
+            opacity: 0.8,
             blending: THREE.AdditiveBlending
         });
 
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        // Mouse interaction for particles
+        // Smooth Mouse Tracking Variables for LERP
         let mouseXWebGL = 0;
         let mouseYWebGL = 0;
+        let targetX = 0;
+        let targetY = 0;
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
 
         document.addEventListener('mousemove', (event) => {
-            mouseXWebGL = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseYWebGL = -(event.clientY / window.innerHeight) * 2 + 1;
+            mouseXWebGL = (event.clientX - windowHalfX);
+            mouseYWebGL = (event.clientY - windowHalfY);
         });
 
-        // Animation loop
+        const clock = new THREE.Clock();
         let animationId;
+
         function animate() {
             animationId = requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
             
-            particlesMesh.rotation.x += 0.0005;
-            particlesMesh.rotation.y += 0.0005;
+            // 1. Calculate Target Rotation based on mouse
+            targetX = mouseXWebGL * 0.001;
+            targetY = mouseYWebGL * 0.001;
             
-            particlesMesh.rotation.x += mouseYWebGL * 0.0005;
-            particlesMesh.rotation.y += mouseXWebGL * 0.0005;
+            // 2. LERP (Linear Interpolation) for buttery smooth transition
+            particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+            particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+            
+            // 3. Constant slow spin so it's never completely still
+            particlesMesh.rotation.z += 0.0005;
+
+            // 4. Smooth Camera Parallax Effect
+            camera.position.x += (mouseXWebGL * 0.01 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseYWebGL * 0.01 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            // 5. Sine Wave Breathing effect on particles
+            const positions = particlesGeometry.attributes.position.array;
+            for(let i = 0; i < particlesCount; i++) {
+                const i3 = i * 3;
+                const x = positions[i3];
+                // Gently shift Y position based on X coordinate and time
+                positions[i3 + 1] += Math.sin(elapsedTime + x) * 0.005; 
+            }
+            particlesGeometry.attributes.position.needsUpdate = true;
             
             renderer.render(scene, camera);
         }
         animate();
 
-        // Handle resize - FIXED for better responsiveness
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-            // Ensure canvas CSS matches new size
-            canvas.style.width = `${window.innerWidth}px`;
-            canvas.style.height = `${window.innerHeight}px`;
         });
 
-        // Pause WebGL when tab is hidden
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 cancelAnimationFrame(animationId);
@@ -1697,8 +1697,8 @@
                 animate();
             }
         });
+        // ----------------------------------------------------
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1712,7 +1712,6 @@
             });
         });
 
-        // Parallax effect for hero section
         gsap.to("#hero .grid-pattern", {
             yPercent: 50,
             ease: "none",
@@ -1724,7 +1723,6 @@
             }
         });
 
-        // Text scramble effect for code elements
         class TextScramble {
             constructor(el) {
                 this.el = el;
@@ -1782,7 +1780,6 @@
             }
         }
 
-        // Apply scramble effect to hero subtitle on load
         window.addEventListener('load', () => {
             const subtitle = document.querySelector('.hero-subtext');
             if (subtitle) {
@@ -1791,7 +1788,6 @@
             }
         });
 
-        // Glitch effect on hover for display text
         const glitchElements = document.querySelectorAll('.glitch-text');
         
         glitchElements.forEach(el => {
