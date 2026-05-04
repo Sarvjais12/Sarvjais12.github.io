@@ -16,8 +16,6 @@ A highly interactive, 3D-reactive personal portfolio website built to showcase m
 
 This repository contains the source code for my personal developer portfolio. Engineered with a dark, cyberpunk-inspired aesthetic, the site utilizes WebGL and advanced animation libraries to create an immersive user experience that reflects my focus on cutting-edge technology and scalable AI systems.
 
-![Portfolio Preview](./og-image.jpg) *(Note: Add your og-image.jpg to the repo to display the preview here)*
-
 ## ✨ Key Features
 
 * **3D Particle Engine:** A custom-built WebGL background using Three.js, featuring depth fog, linear interpolation (LERP) for buttery-smooth mouse tracking, and organic sine-wave breathing effects.
