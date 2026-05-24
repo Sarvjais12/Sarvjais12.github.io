@@ -4,16 +4,9 @@
     <meta charset="utf-8" />
     <title>Sarvagya Jaiswal</title>
     <script>
-      // SPA redirect hack for GitHub Pages
-      var path = window.location.pathname;
-      var query = window.location.search;
-      var hash = window.location.hash;
-      var redirectUrl =
-        window.location.origin +
-        "/?p=" +
-        encodeURIComponent(path + query + hash);
-      window.location.replace(redirectUrl);
+      sessionStorage.redirect = location.href;
     </script>
+    <meta http-equiv="refresh" content="0;URL='/'" />
   </head>
   <body></body>
 </html>

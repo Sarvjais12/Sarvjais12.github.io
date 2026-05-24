@@ -1,35 +1,29 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sarvagya Jaiswal — ML Engineer building production AI</title>
-    <meta name="description" content="ML Engineer behind Infiltrix's Fast Anomaly Gate, Skyclad RAG, and a Spatial-Temporal Deepfake Detector. Live demos on Hugging Face." />
+    <meta name="description" content="Sarvagya Jaiswal — Machine Learning Engineer. Building production AI systems: anomaly detection, RAG agents, computer vision, deployed live." />
     <meta property="og:title" content="Sarvagya Jaiswal — ML Engineer" />
-    <meta property="og:description" content="Building production ML systems — anomaly detection, agentic RAG, and computer vision deployed live." />
+    <meta property="og:description" content="Building production ML systems that stay running." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- Google Fonts -->
+    <title>Sarvagya Jaiswal — ML Engineer</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
-
-    <!-- GitHub Pages SPA routing fix -->
-    <script type="text/javascript">
-      (function(l) {
-        if (l.search[1] === '/') {
-          var decoded = l.search.slice(1).split('&').map(function(s) {
-            return s.replace(/~and~/g, '&');
-          }).join('?');
-          window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          );
+    <script>
+      // SPA routing redirect from 404.html
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
         }
-      }(window.location));
+      })();
     </script>
-    <script type="module" crossorigin src="/assets/index-CHv_JGeY.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CcFNKrMn.css">
+    <script type="module" crossorigin src="/assets/index-CLPbIf34.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-EiNkLH3G.css">
   </head>
   <body>
     <div id="root"></div>
